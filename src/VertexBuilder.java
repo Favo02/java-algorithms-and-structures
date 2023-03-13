@@ -21,14 +21,14 @@ public class VertexBuilder<T> {
         this.y = y;
     }
 
-    public void setValue(T valore) {
-        Objects.requireNonNull(valore);
-        this.value = valore;
+    public void setValue(T value) {
+        Objects.requireNonNull(value);
+        this.value = value;
     }
 
-    public void setTag(String etichetta) {
+    public void setTag(String tag) {
         Objects.requireNonNull(value);
-        this.tag = etichetta;
+        this.tag = tag;
     }
 
     public Vertex<T> build() {
