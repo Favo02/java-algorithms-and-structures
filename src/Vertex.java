@@ -57,4 +57,7 @@ public class Vertex<T> {
         this.tag = tag;
     }
 
+    // TODO: hashcode
+    // TODO: equals
+
 }
