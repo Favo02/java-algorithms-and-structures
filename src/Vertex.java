@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Vertex<T> {
 
     private boolean locked;
@@ -58,7 +60,43 @@ public class Vertex<T> {
         this.tag = tag;
     }
 
-    // TODO: hashcode
-    // TODO: equals
+    /**
+     * hashCode and equals based on:
+     *   x
+     *   y
+     *   value
+     *   tag  
+     */
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y, value, tag);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Vertex other = (Vertex) obj;
+        if (x != other.x)
+            return false;
+        if (y != other.y)
+            return false;
+        if (value == null) {
+            if (other.value != null)
+                return false;
+        } else if (!value.equals(other.value))
+            return false;
+        if (tag == null) {
+            if (other.tag != null)
+                return false;
+        } else if (!tag.equals(other.tag))
+            return false;
+        return true;
+    }
 
 }
