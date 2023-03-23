@@ -1,9 +1,10 @@
 public class Vertex<T> {
 
-    protected boolean locked;
-    protected int x, y;
-    protected T value;
-    protected String tag;
+    private boolean locked;
+    private int x;
+    private int y;
+    private T value;
+    private String tag;
 
     public Vertex(int x, int y, T valore, String tag) {
         locked = false;
