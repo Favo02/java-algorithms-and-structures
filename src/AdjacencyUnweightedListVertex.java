@@ -51,6 +51,7 @@ public class AdjacencyUnweightedListVertex<T> extends Vertex<T> implements Itera
     return Collections.unmodifiableSet(adjacentVertexes);
   }
 
+  // TODO: unmodifiableSet or modifiable? remove could be useful
   /**
    * Retuns an iterator over adjacent Vertexes to this
    * @return an iterator over adjacent Vertexes to this

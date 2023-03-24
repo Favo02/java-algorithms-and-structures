@@ -67,6 +67,7 @@ public class AdjacencyWeightedListVertex<T, Y extends Number> extends Vertex<T> 
     return Collections.unmodifiableSet(adjacentVertexes.keySet());
   }
 
+  // TODO: unmodifiableSet or modifiable? remove could be useful
   /**
    * Retuns an iterator over adjacent Vertexes to this
    * @return an iterator over adjacent Vertexes to this
