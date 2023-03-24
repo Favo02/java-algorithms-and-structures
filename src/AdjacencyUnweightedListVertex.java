@@ -59,5 +59,9 @@ public class AdjacencyUnweightedListVertex<T> extends Vertex<T> {
   public Iterator<Vertex<T>> getAdjacentIterator() {
     return Collections.unmodifiableSet(adjacentVertexes).iterator();
   } 
+
+  public String toStringAdjacent() {
+    return adjacentVertexes.toString();
+  }
   
 }

@@ -75,5 +75,9 @@ public class AdjacencyWeightedListVertex<T, Y extends Number> extends Vertex<T> 
   public Iterator<Vertex<T>> getAdjacentIterator() {
     return Collections.unmodifiableSet(adjacentVertexes.keySet()).iterator();
   } 
+
+  public String toStringAdjacent() {
+    return adjacentVertexes.toString();
+  }
   
 }
