@@ -99,4 +99,29 @@ public class Vertex<T> {
         return true;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Vertex [locked=");
+        sb.append(locked);
+        sb.append(", x=");
+        sb.append(x);
+        sb.append(", y=");
+        sb.append(y);
+        sb.append(", value=");
+        sb.append(value);
+        sb.append(", tag=");
+        sb.append(tag);
+        sb.append("]");
+        return sb.toString();
+    }
+
+    public String toStringCoordinates() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(x);
+        sb.append(',');
+        sb.append(y);
+        return sb.toString();
+    }
+
 }
