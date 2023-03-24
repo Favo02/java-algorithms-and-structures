@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 // Vertex with list of adjacent vertexes in a weighted graph
-public class AdjacencyWeightedListVertex<T, Y extends Number> extends Vertex<T> implements Iterable<Vertex<T>> {
+public class AdjacencyWeightedListVertex<T, Y extends Number> extends Vertex<T> {
 
   private Map<Vertex<T>, Y> adjacentVertexes;
 
@@ -72,8 +72,7 @@ public class AdjacencyWeightedListVertex<T, Y extends Number> extends Vertex<T> 
    * Retuns an iterator over adjacent Vertexes to this
    * @return an iterator over adjacent Vertexes to this
    */
-  @Override
-  public Iterator<Vertex<T>> iterator() {
+  public Iterator<Vertex<T>> getAdjacentIterator() {
     return Collections.unmodifiableSet(adjacentVertexes.keySet()).iterator();
   } 
   

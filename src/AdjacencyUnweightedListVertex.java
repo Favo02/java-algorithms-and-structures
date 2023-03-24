@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 // Vertex with list of adjacent vertexes in an unweighted graph
-public class AdjacencyUnweightedListVertex<T> extends Vertex<T> implements Iterable<Vertex<T>> {
+public class AdjacencyUnweightedListVertex<T> extends Vertex<T> {
 
   private Set<Vertex<T>> adjacentVertexes;
 
@@ -56,8 +56,7 @@ public class AdjacencyUnweightedListVertex<T> extends Vertex<T> implements Itera
    * Retuns an iterator over adjacent Vertexes to this
    * @return an iterator over adjacent Vertexes to this
    */
-  @Override
-  public Iterator<Vertex<T>> iterator() {
+  public Iterator<Vertex<T>> getAdjacentIterator() {
     return Collections.unmodifiableSet(adjacentVertexes).iterator();
   } 
   

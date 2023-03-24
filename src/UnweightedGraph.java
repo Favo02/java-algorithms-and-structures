@@ -5,7 +5,7 @@ import java.util.Set;
 
 // TODO: UnweightedGraph and WeightedGraph can implement an interface or an abstract class Graph
 
-public class UnweightedGraph<T> implements Iterable<AdjacencyUnweightedListVertex<T>> {
+public class UnweightedGraph<T> {
   
   // TODO: Set or Map?
   //    Set: can be really expensive to retreive a Vertex in a Set
@@ -21,8 +21,7 @@ public class UnweightedGraph<T> implements Iterable<AdjacencyUnweightedListVerte
   }
 
   // TODO: unmodifiableSet or modifiable? remove could be useful
-  @Override
-  public Iterator<AdjacencyUnweightedListVertex<T>> iterator() {
+  public Iterator<AdjacencyUnweightedListVertex<T>> getVertexesIterator() {
     return Collections.unmodifiableSet(vertexes).iterator();
   }
 
