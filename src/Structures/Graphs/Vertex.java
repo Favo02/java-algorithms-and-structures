@@ -1,3 +1,5 @@
+package Structures.Graphs;
+
 import java.util.Objects;
 
 public class Vertex<T> {
