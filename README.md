@@ -27,3 +27,10 @@ Available shit:
 
 - **`WeightedGraph<T, Y>` ~~extends `Graph`~~**: _weighted graph (container of weighted vertexes)_
   - _Work in progress..._
+
+---
+- **Heaps:**
+  - **`MaxHeap<T>`**: _priority queue of T_
+    - _Work in progress..._
+  - **`MinHeap<T>`**: _priority queue of T_
+    - _Work in progress..._
