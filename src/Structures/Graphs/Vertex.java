@@ -27,7 +27,8 @@ public class Vertex<TKey> {
       return false;
     if (getClass() != obj.getClass())
       return false;
-    Vertex other = (Vertex) obj;
+    @SuppressWarnings("unchecked")
+    Vertex<TKey> other = (Vertex<TKey>) obj;
     if (key == null) {
       if (other.key != null)
         return false;
