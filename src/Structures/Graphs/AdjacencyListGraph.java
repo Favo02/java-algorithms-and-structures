@@ -29,9 +29,13 @@ public class AdjacencyListGraph<TKey> implements Graph<TKey> {
     adjacencyList.get(from).remove(adjacent);
   }
 
+  public Iterator<Vertex<TKey>> getAdjacentByVertexIterator(Vertex<TKey> from) {
+    return Collections.unmodifiableCollection(adjacencyList.get(from)).iterator();
+  }
+
   @Override
   public Iterator<Vertex<TKey>> getVertexesIterator() {
-    return adjacencyList.keySet().iterator();
+    return Collections.unmodifiableCollection(adjacencyList.keySet()).iterator();
   }
 
   @Override

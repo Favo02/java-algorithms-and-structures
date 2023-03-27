@@ -29,9 +29,13 @@ public class IncidenceListGraph<TKey> implements Graph<TKey> {
     incidenceList.get(from).remove(edge);
   }
 
+  public Iterator<Edge<TKey>> getAdjacentByVertexIterator(Vertex<TKey> from) {
+    return Collections.unmodifiableCollection(incidenceList.get(from)).iterator();
+  }
+
   @Override
   public Iterator<Vertex<TKey>> getVertexesIterator() {
-    return incidenceList.keySet().iterator();
+    return Collections.unmodifiableCollection(incidenceList.keySet()).iterator();
   }
 
   @Override

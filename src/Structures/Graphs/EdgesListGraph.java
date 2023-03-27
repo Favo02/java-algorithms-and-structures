@@ -21,6 +21,32 @@ public class EdgesListGraph<TKey> implements Graph<TKey> {
     this.edges.remove(edge);
   }
 
+  public Iterator<Edge<TKey>> getEdgesFromVertexIterator(Vertex<TKey> from) {
+    
+    Set<Edge<TKey>> filteredEdges = new HashSet<>();
+
+    for (Edge<TKey> edge : edges) {
+      if (edge.getVertexFrom().equals(from)) {
+        filteredEdges.add(edge);
+      }
+    }
+
+    return Collections.unmodifiableCollection(filteredEdges).iterator();
+  }
+
+  public Iterator<Edge<TKey>> getEdgesToVertexIterator(Vertex<TKey> to) {
+    
+    Set<Edge<TKey>> filteredEdges = new HashSet<>();
+
+    for (Edge<TKey> edge : edges) {
+      if (edge.getVertexTo().equals(to)) {
+        filteredEdges.add(edge);
+      }
+    }
+
+    return Collections.unmodifiableCollection(filteredEdges).iterator();
+  }
+
   @Override
   public Iterator<Vertex<TKey>> getVertexesIterator() {
 
@@ -36,7 +62,7 @@ public class EdgesListGraph<TKey> implements Graph<TKey> {
 
   @Override
   public Iterator<Edge<TKey>> getEdgesIterator() {
-    return edges.iterator();
+    return Collections.unmodifiableCollection(edges).iterator();
   }
 
   @Override
