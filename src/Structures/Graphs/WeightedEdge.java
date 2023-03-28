@@ -3,7 +3,7 @@ package Structures.Graphs;
 import java.util.Objects;
 
 public class WeightedEdge<TKey> extends Edge<TKey> {
-  
+
   private long weight;
 
   public WeightedEdge(Vertex<TKey> vertexFrom, Vertex<TKey> vertexTo, long weight) {
@@ -17,7 +17,7 @@ public class WeightedEdge<TKey> extends Edge<TKey> {
 
   @Override
   public int hashCode() {
-    return Objects.hash((Edge<TKey>)this, weight);
+    return Objects.hash(super.hashCode(), weight);
   }
 
   @Override
@@ -34,5 +34,10 @@ public class WeightedEdge<TKey> extends Edge<TKey> {
       return false;
     return true;
   }
-  
+
+  @Override
+  public String toString() {
+    return String.format("Edge[vertexFrom=%s, vertexTo=%s, weight=%s]", getVertexFrom(), getVertexTo(), weight);
+  }
+
 }
