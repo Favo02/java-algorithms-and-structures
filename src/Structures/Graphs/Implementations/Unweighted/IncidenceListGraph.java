@@ -57,7 +57,7 @@ public class IncidenceListGraph<TKey> implements Graph<TKey> {
   }
 
   @Override
-  public Vertex<TKey> findVertex(Object key) {
+  public Vertex<TKey> findVertex(TKey key) {
 
     for (Vertex<TKey> vertex : incidenceList.keySet()) {
       if (vertex.getKey().equals(key)) {
@@ -69,7 +69,7 @@ public class IncidenceListGraph<TKey> implements Graph<TKey> {
   }
 
   @Override
-  public Edge<TKey> findEdge(Object keyFrom, Object keyTo) {
+  public Edge<TKey> findEdge(TKey keyFrom, TKey keyTo) {
 
     for (Vertex<TKey> from : incidenceList.keySet()) {
       if (from.getKey().equals(keyFrom)) {

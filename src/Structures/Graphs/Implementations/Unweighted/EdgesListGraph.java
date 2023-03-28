@@ -70,7 +70,7 @@ public class EdgesListGraph<TKey> implements Graph<TKey> {
   }
 
   @Override
-  public Vertex<TKey> findVertex(Object key) {
+  public Vertex<TKey> findVertex(TKey key) {
     for (Edge<TKey> edge : edges) {
       if (edge.getVertexFrom().getKey().equals(key)) {
         return edge.getVertexFrom();
