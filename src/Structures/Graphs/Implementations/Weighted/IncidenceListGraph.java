@@ -1,5 +1,6 @@
-package Structures.Graphs.Implementations.Unweighted;
+package Structures.Graphs.Implementations.Weighted;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -7,19 +8,20 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import Structures.Graphs.WeightedEdge;
 import Structures.Graphs.Edge;
-import Structures.Graphs.Graph;
 import Structures.Graphs.Vertex;
+import Structures.Graphs.WeightedGraph;
 
-public class IncidenceListGraph<TKey> implements Graph<TKey> {
+public class IncidenceListGraph<TKey> implements WeightedGraph<TKey> {
 
-  private Map<Vertex<TKey>, Set<Edge<TKey>>> incidenceList;
+  private Map<Vertex<TKey>, Set<WeightedEdge<TKey>>> incidenceList;
 
   public IncidenceListGraph() {
     this.incidenceList = new HashMap<>();
   }
 
-  public void addAdjacent(Vertex<TKey> from, Edge<TKey> edge) {
+  public void addAdjacent(Vertex<TKey> from, WeightedEdge<TKey> edge) {
 
     if (!incidenceList.containsKey(from)) {
       incidenceList.put(from, new HashSet<>());
@@ -28,7 +30,7 @@ public class IncidenceListGraph<TKey> implements Graph<TKey> {
     incidenceList.get(from).add(edge);
   }
 
-  public void removeAdjacent(Vertex<TKey> from, Edge<TKey> edge) {
+  public void removeAdjacent(Vertex<TKey> from, WeightedEdge<TKey> edge) {
     var fromSet = incidenceList.get(from);
     if (fromSet == null) {
       throw new NullPointerException("from does not exist in the graph");
@@ -36,7 +38,7 @@ public class IncidenceListGraph<TKey> implements Graph<TKey> {
     fromSet.remove(edge);
   }
 
-  public Iterator<Edge<TKey>> getAdjacentByVertexIterator(Vertex<TKey> from) {
+  public Iterator<WeightedEdge<TKey>> getAdjacentByVertexIterator(Vertex<TKey> from) {
     return Collections.unmodifiableCollection(incidenceList.get(from)).iterator();
   }
 
@@ -48,15 +50,16 @@ public class IncidenceListGraph<TKey> implements Graph<TKey> {
   @Override
   public Iterator<Edge<TKey>> getEdgesIterator() {
 
-    Set<Edge<TKey>> edges = new HashSet<>();
+    Set<WeightedEdge<TKey>> edges = new HashSet<>();
 
     for (Vertex<TKey> from : incidenceList.keySet()) {
-      for (Edge<TKey> edge : incidenceList.get(from)) {
+      for (WeightedEdge<TKey> edge : incidenceList.get(from)) {
         edges.add(edge);
       }
     }
 
-    return Collections.unmodifiableCollection(edges).iterator();
+    Collection<Edge<TKey>> internalCollection = Collections.unmodifiableCollection(edges);
+    return internalCollection.iterator();
   }
 
   @Override
@@ -72,11 +75,11 @@ public class IncidenceListGraph<TKey> implements Graph<TKey> {
   }
 
   @Override
-  public Edge<TKey> findEdge(TKey keyFrom, TKey keyTo) {
+  public WeightedEdge<TKey> findEdge(TKey keyFrom, TKey keyTo) {
 
     for (Vertex<TKey> from : incidenceList.keySet()) {
       if (from.getKey().equals(keyFrom)) {
-        for (Edge<TKey> edge : incidenceList.get(from)) {
+        for (WeightedEdge<TKey> edge : incidenceList.get(from)) {
           if (edge.getVertexTo().getKey().equals(keyTo)) {
             return edge;
           }
@@ -85,6 +88,19 @@ public class IncidenceListGraph<TKey> implements Graph<TKey> {
     }
 
     return null;
+  }
+
+  @Override
+  public Iterator<WeightedEdge<TKey>> getWeightedEdgesIterator() {
+    Set<WeightedEdge<TKey>> edges = new HashSet<>();
+
+    for (Vertex<TKey> from : incidenceList.keySet()) {
+      for (WeightedEdge<TKey> edge : incidenceList.get(from)) {
+        edges.add(edge);
+      }
+    }
+
+    return Collections.unmodifiableCollection(edges).iterator();
   }
 
 }
