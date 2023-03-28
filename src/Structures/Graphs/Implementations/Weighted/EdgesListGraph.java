@@ -99,8 +99,7 @@ public class EdgesListGraph<TKey> implements WeightedGraph<TKey> {
 
   @Override
   public Iterator<WeightedEdge<TKey>> getWeightedEdgesIterator() {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'getWeightedEdgesIterator'");
+    return Collections.unmodifiableCollection(edges).iterator();
   }
 
 }
