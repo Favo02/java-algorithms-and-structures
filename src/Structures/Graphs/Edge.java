@@ -3,7 +3,7 @@ package Structures.Graphs;
 import java.util.Objects;
 
 public class Edge<TKey> {
-  
+
   private Vertex<TKey> vertexFrom;
   private Vertex<TKey> vertexTo;
 
@@ -50,13 +50,7 @@ public class Edge<TKey> {
 
   @Override
   public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("Edge[vertexFrom=");
-    sb.append(vertexFrom);
-    sb.append(",vertexTo=");
-    sb.append(vertexTo);
-    sb.append("]");
-    return sb.toString();
+    return String.format("Edge[vertexFrom=%s, vertexTo=%s]", vertexFrom, vertexTo);
   }
 
 }
