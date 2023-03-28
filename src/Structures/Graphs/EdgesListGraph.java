@@ -22,7 +22,7 @@ public class EdgesListGraph<TKey> implements Graph<TKey> {
   }
 
   public Iterator<Edge<TKey>> getEdgesFromVertexIterator(Vertex<TKey> from) {
-    
+
     Set<Edge<TKey>> filteredEdges = new HashSet<>();
 
     for (Edge<TKey> edge : edges) {
@@ -35,7 +35,7 @@ public class EdgesListGraph<TKey> implements Graph<TKey> {
   }
 
   public Iterator<Edge<TKey>> getEdgesToVertexIterator(Vertex<TKey> to) {
-    
+
     Set<Edge<TKey>> filteredEdges = new HashSet<>();
 
     for (Edge<TKey> edge : edges) {
@@ -80,7 +80,7 @@ public class EdgesListGraph<TKey> implements Graph<TKey> {
   }
 
   @Override
-  public Edge<TKey> findEdge(Object keyFrom, Object keyTo) {
+  public Edge<TKey> findEdge(TKey keyFrom, TKey keyTo) {
     for (Edge<TKey> edge : edges) {
       if (edge.getVertexFrom().getKey().equals(keyFrom) && edge.getVertexTo().getKey().equals(keyTo)) {
         return edge;
