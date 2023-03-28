@@ -1,35 +1,37 @@
-package Structures.Graphs.Implementations.Unweighted;
+package Structures.Graphs.Implementations.Weighted;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import Structures.Graphs.WeightedEdge;
 import Structures.Graphs.Edge;
-import Structures.Graphs.Graph;
 import Structures.Graphs.Vertex;
+import Structures.Graphs.WeightedGraph;
 
-public class EdgesListGraph<TKey> implements Graph<TKey> {
+public class EdgesListGraph<TKey> implements WeightedGraph<TKey> {
 
-  private Set<Edge<TKey>> edges;
+  private Set<WeightedEdge<TKey>> edges;
 
   public EdgesListGraph() {
     this.edges = new HashSet<>();
   }
 
-  public void addEdge(Edge<TKey> edge) {
+  public void addEdge(WeightedEdge<TKey> edge) {
     this.edges.add(edge);
   }
 
-  public void removeEdge(Edge<TKey> edge) {
+  public void removeEdge(WeightedEdge<TKey> edge) {
     this.edges.remove(edge);
   }
 
-  public Iterator<Edge<TKey>> getEdgesFromVertexIterator(Vertex<TKey> from) {
+  public Iterator<WeightedEdge<TKey>> getEdgesFromVertexIterator(Vertex<TKey> from) {
 
-    Set<Edge<TKey>> filteredEdges = new HashSet<>();
+    Set<WeightedEdge<TKey>> filteredEdges = new HashSet<>();
 
-    for (Edge<TKey> edge : edges) {
+    for (WeightedEdge<TKey> edge : edges) {
       if (edge.getVertexFrom().equals(from)) {
         filteredEdges.add(edge);
       }
@@ -38,11 +40,11 @@ public class EdgesListGraph<TKey> implements Graph<TKey> {
     return Collections.unmodifiableCollection(filteredEdges).iterator();
   }
 
-  public Iterator<Edge<TKey>> getEdgesToVertexIterator(Vertex<TKey> to) {
+  public Iterator<WeightedEdge<TKey>> getEdgesToVertexIterator(Vertex<TKey> to) {
 
-    Set<Edge<TKey>> filteredEdges = new HashSet<>();
+    Set<WeightedEdge<TKey>> filteredEdges = new HashSet<>();
 
-    for (Edge<TKey> edge : edges) {
+    for (WeightedEdge<TKey> edge : edges) {
       if (edge.getVertexTo().equals(to)) {
         filteredEdges.add(edge);
       }
@@ -56,7 +58,7 @@ public class EdgesListGraph<TKey> implements Graph<TKey> {
 
     Set<Vertex<TKey>> vertexes = new HashSet<>();
 
-    for (Edge<TKey> edge : edges) {
+    for (WeightedEdge<TKey> edge : edges) {
       vertexes.add(edge.getVertexFrom());
       vertexes.add(edge.getVertexTo());
     }
@@ -66,12 +68,13 @@ public class EdgesListGraph<TKey> implements Graph<TKey> {
 
   @Override
   public Iterator<Edge<TKey>> getEdgesIterator() {
-    return Collections.unmodifiableCollection(edges).iterator();
+    Collection<Edge<TKey>> internalCollection = Collections.unmodifiableCollection(edges);
+    return internalCollection.iterator();
   }
 
   @Override
   public Vertex<TKey> findVertex(TKey key) {
-    for (Edge<TKey> edge : edges) {
+    for (WeightedEdge<TKey> edge : edges) {
       if (edge.getVertexFrom().getKey().equals(key)) {
         return edge.getVertexFrom();
       }
@@ -84,14 +87,20 @@ public class EdgesListGraph<TKey> implements Graph<TKey> {
   }
 
   @Override
-  public Edge<TKey> findEdge(TKey keyFrom, TKey keyTo) {
-    for (Edge<TKey> edge : edges) {
+  public WeightedEdge<TKey> findEdge(TKey keyFrom, TKey keyTo) {
+    for (WeightedEdge<TKey> edge : edges) {
       if (edge.getVertexFrom().getKey().equals(keyFrom) && edge.getVertexTo().getKey().equals(keyTo)) {
         return edge;
       }
     }
 
     return null;
+  }
+
+  @Override
+  public Iterator<WeightedEdge<TKey>> getWeightedEdgesIterator() {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'getWeightedEdgesIterator'");
   }
 
 }
