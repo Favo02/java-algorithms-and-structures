@@ -130,4 +130,6 @@ public class WeightedAdjacencyMatrix<TKey> implements WeightedGraph<TKey> {
     return Collections.unmodifiableCollection(edges).iterator();
   }
 
+  // TODO implement toString
+
 }
