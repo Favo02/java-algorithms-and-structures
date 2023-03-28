@@ -29,8 +29,11 @@ public class IncidenceListGraph<TKey> implements Graph<TKey> {
   }
 
   public void removeAdjacent(Vertex<TKey> from, Edge<TKey> edge) {
-    // TODO: check if from exists (?)
-    incidenceList.get(from).remove(edge);
+    var fromSet = incidenceList.get(from);
+    if (fromSet == null) {
+      throw new NullPointerException("from does not exist in the graph");
+    }
+    fromSet.remove(edge);
   }
 
   public Iterator<Edge<TKey>> getAdjacentByVertexIterator(Vertex<TKey> from) {
@@ -44,7 +47,7 @@ public class IncidenceListGraph<TKey> implements Graph<TKey> {
 
   @Override
   public Iterator<Edge<TKey>> getEdgesIterator() {
-    
+
     Set<Edge<TKey>> edges = new HashSet<>();
 
     for (Vertex<TKey> from : incidenceList.keySet()) {
@@ -83,5 +86,5 @@ public class IncidenceListGraph<TKey> implements Graph<TKey> {
 
     return null;
   }
-  
+
 }
