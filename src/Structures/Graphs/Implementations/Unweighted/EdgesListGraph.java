@@ -1,9 +1,13 @@
-package Structures.Graphs;
+package Structures.Graphs.Implementations.Unweighted;
 
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+
+import Structures.Graphs.Edge;
+import Structures.Graphs.Graph;
+import Structures.Graphs.Vertex;
 
 public class EdgesListGraph<TKey> implements Graph<TKey> {
 

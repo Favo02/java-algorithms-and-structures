@@ -1,4 +1,4 @@
-package Structures.Graphs;
+package Structures.Graphs.Implementations.Unweighted;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -6,6 +6,10 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+
+import Structures.Graphs.Edge;
+import Structures.Graphs.Graph;
+import Structures.Graphs.Vertex;
 
 public class AdjacencyListGraph<TKey> implements Graph<TKey> {
 
