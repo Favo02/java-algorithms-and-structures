@@ -13,7 +13,8 @@ import Structures.Graphs.WeightedGraph;
 
 public class EdgesListGraph<TKey> implements WeightedGraph<TKey> {
 
-  private Set<WeightedEdge<TKey>> edges;
+  private Set<WeightedEdge<TKey>> edges; // TODO this should be a list instead, (set may be inconsistent across multiple
+                                         // iterations ?)
 
   public EdgesListGraph() {
     this.edges = new HashSet<>();
