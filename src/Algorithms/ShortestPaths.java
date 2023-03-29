@@ -7,6 +7,7 @@ import java.util.Map;
 import Structures.FibonacciHeap;
 import Structures.Graphs.Vertex;
 import Structures.Graphs.WeightedEdge;
+import Structures.Graphs.Implementations.Weighted.EdgesListGraph;
 import Structures.Graphs.Implementations.Weighted.IncidenceListGraph;
 
 public class ShortestPaths {
@@ -52,4 +53,68 @@ public class ShortestPaths {
     return distances;
   }
 
+  // Algorithm based on implementaion by Keith Schwarz (htiek@cs.stanford.edu) (http://keithschwarz.com/interesting)
+  public static <TKey> Map<Vertex<TKey>, Long> bellmanFord(EdgesListGraph<TKey> graph, Vertex<TKey> start) {
+    /*
+     * Construct a map from the nodes to their distances, then populate it
+     * with the initial value of the recurrence (the source is at distance
+     * zero from itself; all other nodes are at infinite distance).
+     */
+    Map<Vertex<TKey>, Long> result = new HashMap<>();
+
+    Iterator<Vertex<TKey>> vertexesIterator = graph.getVertexesIterator();
+    int vertexCount = 0;
+    while (vertexesIterator.hasNext()) {
+      Vertex<TKey> vertex = vertexesIterator.next();
+      result.put(vertex, Long.MAX_VALUE);
+      vertexCount++;
+    }
+    result.put(start, Long.valueOf(0));
+
+    /*
+     * Create a new map that acts as scratch space. We'll flip back and
+     * forth between the result map and this map during each iteration of
+     * the algortihm so that we avoid needlessly reallocating maps.
+     */
+    Map<Vertex<TKey>, Long> scratch = new HashMap<>();
+
+    /*
+     * Starting with k = 1, compute the new values for the distances by
+     * evaluating the recurrence.
+     */
+    for (int k = 1; k <= vertexCount; ++k) {
+      /*
+       * Begin by guessing that each node in this new iteration will have
+       * a cost equal to its cost on the previous iteration.
+       */
+      scratch.putAll(result);
+
+      /*
+       * Scan across all the edges in the graph, updating the costs of
+       * the paths of the nodes at their endpoints.
+       */
+      Iterator<WeightedEdge<TKey>> edgesIterator = graph.getWeightedEdgesIterator();
+      while (edgesIterator.hasNext()) {
+        WeightedEdge<TKey> edge = edgesIterator.next();
+        /*
+         * The new cost of the shortest path to this node is no
+         * greater than the cost of the shortest path to the nodes'
+         * neighbor plus the cost of the edge from that neighbor
+         * into this node.
+         */
+        scratch.put(edge.getVertexTo(), Math.min(scratch.get(edge.getVertexTo()), edge.getWeight() + result.get(edge.getVertexFrom())));
+      }
+
+      /*
+       * Finally, exchange the scratch buffer holding the new result with
+       * the result map holding last iteration's results.
+       */
+      Map<Vertex<TKey>, Long> temp = result;
+      result = scratch;
+      scratch = temp;
+    }
+
+    /* Finally, report the distances. */
+    return result;
+  }
 }
