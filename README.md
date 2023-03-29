@@ -2,7 +2,7 @@
 
 Available shit:
 
----
+### Data Structures:
 
 **`Vertex<TKey>`**: _vertex with generic key (unique identifier). Extend to add fields_
 - Fields:
@@ -54,4 +54,12 @@ _INTERFACE_ **`WeightedGraph<TKey> extends Graph<TKey>`**: _weighted graph_
 - Methods:
   - `getWeightedEdgesIterator() --> Iterator<WeightedEdge<TKey>>`
 
----
+
+### Algorithms:
+
+Searchs:
+  - **`bfs(AdjacencyListGraph<TKey> graph, Vertex<TKey> start) --> Map<Vertex<TKey>, Long>`**
+  - **`dfs(AdjacencyListGraph<TKey> graph, Vertex<TKey> start) --> List<Vertex<TKey>>`**
+
+Shortest paths:
+  - **`dijkstra(IncidenceListGraph<TKey> graph, Vertex<TKey> start) --> Map<Vertex<TKey>, Long>`**
