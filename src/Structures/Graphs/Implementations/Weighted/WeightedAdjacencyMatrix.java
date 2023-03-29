@@ -34,7 +34,7 @@ public class WeightedAdjacencyMatrix<TKey> implements WeightedGraph<TKey> {
         }
       }
     }
-
+    //TODO matrixelement internal class mutable wrapper for long type
     int i = 0;
     for (Vertex<TKey> vertex : vertexes) {
       vertexToIndex.put(vertex, i);
@@ -99,17 +99,21 @@ public class WeightedAdjacencyMatrix<TKey> implements WeightedGraph<TKey> {
 
   @Override
   public WeightedEdge<TKey> findEdge(TKey keyFrom, TKey keyTo) {
-    for (Vertex<TKey> vertexFrom : vertexToIndex.keySet()) {
-      if (vertexFrom.getKey().equals(keyFrom)) {
+    Vertex<TKey> vertexFrom = new Vertex<TKey>(keyFrom);
+    Vertex<TKey> vertexTo = new Vertex<TKey>(keyTo);
 
-        for (int indexTo = 0; indexTo < matrix.length; indexTo++) {
-          if (indexToVertex.get(indexTo).getKey().equals(keyTo)) {
-        
-            return new WeightedEdge<>(vertexFrom, indexToVertex.get(indexTo), matrix[vertexToIndex.get(vertexFrom)][indexTo]);
-        
-          }
-        }
-      }
+    if (!(vertexToIndex.containsKey(vertexFrom))) {
+      return null;
+    }
+    if (!(vertexToIndex.containsKey(vertexTo))) {
+      return null;
+    }
+
+    int indexFrom = vertexToIndex.get(vertexFrom);
+    int indexTo = vertexToIndex.get(vertexTo);
+
+    if (matrix[indexFrom][indexTo] != Long.MAX_VALUE) {
+      return new WeightedEdge<>(vertexFrom, vertexTo, matrix[indexFrom][indexTo]);
     }
 
     return null;
