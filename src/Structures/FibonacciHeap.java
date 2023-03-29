@@ -1,3 +1,11 @@
+/*
+ * Modifications to original file:
+ * - imports
+ * - priority double to priority long
+ * - remove checkPriority()
+ * 
+ */
+
 /***********************************************************************
  * File: FibonacciHeap.java
  * Author: Keith Schwarz (htiek@cs.stanford.edu)
@@ -83,7 +91,7 @@ public final class FibonacciHeap<T> {
         private Entry<T> mChild;  // Child node, if any.
 
         private T      mElem;     // Element being stored here
-        private double mPriority; // Its priority
+        private long mPriority; // Its priority
 
         /**
          * Returns the element represented by this heap entry.
@@ -107,7 +115,7 @@ public final class FibonacciHeap<T> {
          *
          * @return The priority of this element.
          */
-        public double getPriority() {
+        public long getPriority() {
             return mPriority;
         }
 
@@ -118,7 +126,7 @@ public final class FibonacciHeap<T> {
          * @param elem The element stored in this node.
          * @param priority The priority of this element.
          */
-        private Entry(T elem, double priority) {
+        private Entry(T elem, long priority) {
             mNext = mPrev = this;
             mElem = elem;
             mPriority = priority;
@@ -133,16 +141,14 @@ public final class FibonacciHeap<T> {
 
     /**
      * Inserts the specified element into the Fibonacci heap with the specified
-     * priority.  Its priority must be a valid double, so you cannot set the
+     * priority.  Its priority must be a valid long, so you cannot set the
      * priority to NaN.
      *
      * @param value The value to insert.
      * @param priority Its priority, which must be valid.
      * @return An Entry representing that element in the tree.
      */
-    public Entry<T> enqueue(T value, double priority) {
-        checkPriority(priority);
-
+    public Entry<T> enqueue(T value, long priority) {
         /* Create the entry object, which is a circularly-linked list of length
          * one.
          */
@@ -374,7 +380,7 @@ public final class FibonacciHeap<T> {
     /**
      * Decreases the key of the specified element to the new priority.  If the
      * new priority is greater than the old priority, this function throws an
-     * IllegalArgumentException.  The new priority must be a finite double,
+     * IllegalArgumentException.  The new priority must be a finite long,
      * so you cannot set the priority to be NaN, or +/- infinity.  Doing
      * so also throws an IllegalArgumentException.
      *
@@ -384,10 +390,9 @@ public final class FibonacciHeap<T> {
      * @param entry The element whose priority should be decreased.
      * @param newPriority The new priority to associate with this entry.
      * @throws IllegalArgumentException If the new priority exceeds the old
-     *         priority, or if the argument is not a finite double.
+     *         priority, or if the argument is not a finite long.
      */
-    public void decreaseKey(Entry<T> entry, double newPriority) {
-        checkPriority(newPriority);
+    public void decreaseKey(Entry<T> entry, long newPriority) {
         if (newPriority > entry.mPriority)
             throw new IllegalArgumentException("New priority exceeds old.");
 
@@ -407,22 +412,10 @@ public final class FibonacciHeap<T> {
         /* Use decreaseKey to drop the entry's key to -infinity.  This will
          * guarantee that the node is cut and set to the global minimum.
          */
-        decreaseKeyUnchecked(entry, Double.NEGATIVE_INFINITY);
+        decreaseKeyUnchecked(entry, Long.MIN_VALUE);
 
         /* Call dequeueMin to remove it. */
         dequeueMin();
-    }
-
-    /**
-     * Utility function which, given a user-specified priority, checks whether
-     * it's a valid double and throws an IllegalArgumentException otherwise.
-     *
-     * @param priority The user's specified priority.
-     * @throws IllegalArgumentException If it is not valid.
-     */
-    private void checkPriority(double priority) {
-        if (Double.isNaN(priority))
-            throw new IllegalArgumentException(priority + " is invalid.");
     }
 
     /**
@@ -504,7 +497,7 @@ public final class FibonacciHeap<T> {
      * @param entry The node whose key should be decreased.
      * @param priority The node's new priority.
      */
-    private void decreaseKeyUnchecked(Entry<T> entry, double priority) {
+    private void decreaseKeyUnchecked(Entry<T> entry, long priority) {
         /* First, change the node's priority. */
         entry.mPriority = priority;
 
