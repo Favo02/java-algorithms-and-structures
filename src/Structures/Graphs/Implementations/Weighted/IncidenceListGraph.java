@@ -27,6 +27,10 @@ public class IncidenceListGraph<TKey> implements WeightedGraph<TKey> {
       incidenceList.put(edge.getVertexFrom(), new HashSet<>());
     }
 
+    if (!incidenceList.containsKey(edge.getVertexTo())) {
+      incidenceList.put(edge.getVertexTo(), new HashSet<>());
+    }
+
     incidenceList.get(edge.getVertexFrom()).add(edge);
   }
 
@@ -117,7 +121,9 @@ public class IncidenceListGraph<TKey> implements WeightedGraph<TKey> {
       for (var v : valueSet) {
         sb.append(String.format("%s: %s ", v.getVertexTo().getKey(), v.getWeight()));
       }
-      sb.replace(sb.length() - 1, sb.length(), "");
+      if(!valueSet.isEmpty()) {
+        sb.replace(sb.length() - 1, sb.length(), "");
+      }
       sb.append('}');
       sb.append(' ');
     }
