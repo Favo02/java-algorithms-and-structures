@@ -21,13 +21,13 @@ public class IncidenceListGraph<TKey> implements WeightedGraph<TKey> {
     this.incidenceList = new HashMap<>();
   }
 
-  public void addAdjacent(Vertex<TKey> from, WeightedEdge<TKey> edge) {
+  public void addEdge(WeightedEdge<TKey> edge) {
 
-    if (!incidenceList.containsKey(from)) {
-      incidenceList.put(from, new HashSet<>());
+    if (!incidenceList.containsKey(edge.getVertexFrom())) {
+      incidenceList.put(edge.getVertexFrom(), new HashSet<>());
     }
 
-    incidenceList.get(from).add(edge);
+    incidenceList.get(edge.getVertexFrom()).add(edge);
   }
 
   public void removeAdjacent(Vertex<TKey> from, WeightedEdge<TKey> edge) {
@@ -103,6 +103,24 @@ public class IncidenceListGraph<TKey> implements WeightedGraph<TKey> {
     return Collections.unmodifiableCollection(edges).iterator();
   }
 
-  // TODO implement toString
+  public String verboseToString() {
+    return "IncidenceListGraph [incidenceList=" + incidenceList + "]";
+  }
 
+  @Override
+  public String toString() {
+    var sb = new StringBuilder();
+    for (var k : incidenceList.keySet()) {
+      sb.append(k.getKey());
+      sb.append('{');
+      var valueSet = incidenceList.get(k);
+      for (var v : valueSet) {
+        sb.append(String.format("%s: %s ", v.getVertexTo().getKey(), v.getWeight()));
+      }
+      sb.replace(sb.length() - 1, sb.length(), "");
+      sb.append('}');
+      sb.append(' ');
+    }
+    return sb.toString();
+  }
 }
