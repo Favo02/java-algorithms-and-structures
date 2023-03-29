@@ -10,35 +10,41 @@ import Structures.Graphs.WeightedEdge;
 import Structures.Graphs.Implementations.Weighted.IncidenceListGraph;
 
 public class ShortestPaths {
-  
-  public static <TKey> Map<Vertex<TKey>, Long> dijkstra(IncidenceListGraph<TKey> graph, Vertex<TKey> start) {
-    
-    Map<Vertex<TKey>, Long> distances = new HashMap<>();
 
-    FibonacciHeap<Vertex<TKey>> queueHeap = new FibonacciHeap<>();
+  // Algorithm based on implementaion by Keith Schwarz (htiek@cs.stanford.edu) (http://keithschwarz.com/interesting)
+  public static <TKey> Map<Vertex<TKey>, Long> dijkstra(IncidenceListGraph<TKey> graph, Vertex<TKey> start) {
+
+    FibonacciHeap<Vertex<TKey>> priorityQueue = new FibonacciHeap<>();
+    Map<Vertex<TKey>, FibonacciHeap.Entry<Vertex<TKey>>> priorityQueueEntries = new HashMap<>();
+    Map<Vertex<TKey>, Long> distances = new HashMap<>();
 
     Iterator<Vertex<TKey>> vertexesIterator = graph.getVertexesIterator();
     while (vertexesIterator.hasNext()) {
-      queueHeap.enqueue(vertexesIterator.next(), Long.MAX_VALUE);
+      var vertex = vertexesIterator.next();
+      priorityQueueEntries.put(vertex, priorityQueue.enqueue(vertex, Long.MAX_VALUE));
     }
 
-    distances.put(start, Long.valueOf(0));
+    priorityQueue.decreaseKey(priorityQueueEntries.get(start), 0);
 
-    while (queueHeap.size() != 0) {
+    while (!priorityQueue.isEmpty()) {
+      FibonacciHeap.Entry<Vertex<TKey>> curr = priorityQueue.dequeueMin();
 
-      FibonacciHeap.Entry<Vertex<TKey>> entry = queueHeap.dequeueMin();
-      Vertex<TKey> closest = entry.getValue();
-      long closestDistance = entry.getPriority();
+      distances.put(curr.getValue(), curr.getPriority());
 
-      Iterator<WeightedEdge<TKey>> incidentIterator = graph.getAdjacentByVertexIterator(closest);
+      Iterator<WeightedEdge<TKey>> incidentIterator = graph.getAdjacentByVertexIterator(curr.getValue());
       while (incidentIterator.hasNext()) {
-        WeightedEdge<TKey> incident = incidentIterator.next();
 
-        long oldDistance = distances.get(incident.getVertexTo());
-        long newDistance = closestDistance + incident.getWeight();
-        
-        if (newDistance < oldDistance) {
-          distances.put(incident.getVertexTo(), newDistance);
+        WeightedEdge<TKey> edge = incidentIterator.next();
+
+        if (distances.containsKey(edge.getVertexTo())) {
+          continue;
+        }
+
+        long newDist = curr.getPriority() + edge.getWeight();
+
+        FibonacciHeap.Entry<Vertex<TKey>> dest = priorityQueueEntries.get(edge.getVertexTo());
+        if (newDist < dest.getPriority()) {
+          priorityQueue.decreaseKey(dest, newDist);
         }
       }
     }
