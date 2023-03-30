@@ -2,7 +2,7 @@ package Structures.Graphs;
 
 import java.util.Objects;
 
-public class WeightedEdge<TKey> extends Edge<TKey> {
+public class WeightedEdge<TKey> extends Edge<TKey> implements Comparable<WeightedEdge<TKey>> {
 
   private long weight;
 
@@ -38,6 +38,11 @@ public class WeightedEdge<TKey> extends Edge<TKey> {
   @Override
   public String toString() {
     return String.format("Edge[vertexFrom=%s, vertexTo=%s, weight=%s]", getVertexFrom(), getVertexTo(), weight);
+  }
+
+  @Override
+  public int compareTo(WeightedEdge<TKey> other) {
+    return Long.compare(this.weight, other.weight);
   }
 
 }
