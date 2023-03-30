@@ -1,6 +1,8 @@
-## Utilities to work with graphs in `Java`
+## Common Data strucures and Algorithms in `Java`
 
-Available shit:
+Available stuff:
+
+---
 
 ### Data Structures:
 
@@ -9,10 +11,10 @@ Available shit:
   - `TKey key`
 - Methods:
   - `Vertex(TKey key)`
-  - `getKey() --> TKey`
-  - `hashCode() --> int`
-  - `equals(Object obj) --> boolean`
-  - `toString() --> String`
+  - `getKey()` --> `TKey`
+  - `hashCode()` --> `int`
+  - `equals(Object obj)` --> `boolean`
+  - `toString()` --> `String`
 
 ---
 
@@ -22,11 +24,11 @@ Available shit:
   - `Vertex<TKey> vertexTo`
 - Methods:
   - `Edge(Vertex<TKey> vertexFrom, Vertex<TKey> vertexTo)`
-  - `getVertexFrom() --> Vertex<TKey>`
-  - `getVertexTo() --> Vertex<TKey>`
-  - `hashCode() --> int`
-  - `equals(Object obj) --> boolean`
-  - `toString() --> String`
+  - `getVertexFrom()` --> `Vertex<TKey>`
+  - `getVertexTo()` --> `Vertex<TKey>`
+  - `hashCode()` --> `int`
+  - `equals(Object obj)` --> `boolean`
+  - `toString()` --> `String`
 
 ---
 
@@ -35,31 +37,36 @@ Available shit:
   - `long weight`
 - Methods:
   - `WeightedEdge(Vertex<TKey> vertexFrom, Vertex<TKey> vertexTo, long weight)`
-  - `hashCode() --> int`
-  - `equals(Object obj) --> boolean`
-  - `toString() --> String`
+  - `hashCode()` --> `int`
+  - `equals(Object obj)` --> `boolean`
+  - `toString()` --> `String`
 
 ---
 
 _INTERFACE_ **`Graph<TKey>`**: _unweighted graph_
 - Methods:
-  - `getVertexesIterator() --> Iterator<Vertex<TKey>>`
-  - `getEdgesIterator() --> Iterator<Edge<TKey>>`
-  - `findVertex(TKey key) --> Vertex<TKey>`
-  - `findEdge(TKey keyFrom, TKey keyTo) --> Edge<TKey>`
+  - `getVertexesIterator()` --> `Iterator<Vertex<TKey>>`
+  - `getEdgesIterator()` --> `Iterator<Edge<TKey>>`
+  - `findVertex(TKey key)` --> `Vertex<TKey>`
+  - `findEdge(TKey keyFrom, TKey keyTo)` --> `Edge<TKey>`
 
 ---
 
 _INTERFACE_ **`WeightedGraph<TKey> extends Graph<TKey>`**: _weighted graph_
 - Methods:
-  - `getWeightedEdgesIterator() --> Iterator<WeightedEdge<TKey>>`
+  - `getWeightedEdgesIterator()` --> `Iterator<WeightedEdge<TKey>>`
 
+---
 
 ### Algorithms:
 
 Searchs:
-  - **`bfs(AdjacencyListGraph<TKey> graph, Vertex<TKey> start) --> Map<Vertex<TKey>, Long>`**
-  - **`dfs(AdjacencyListGraph<TKey> graph, Vertex<TKey> start) --> List<Vertex<TKey>>`**
+  - **`bfs(AdjacencyListGraph<TKey> graph, Vertex<TKey> start)` --> `Map<Vertex<TKey>, Long>`**
+  - **`dfs(AdjacencyListGraph<TKey> graph, Vertex<TKey> start)` --> `List<Vertex<TKey>>`**
 
 Shortest paths:
-  - **`dijkstra(IncidenceListGraph<TKey> graph, Vertex<TKey> start) --> Map<Vertex<TKey>, Long>`**
+  - **`dijkstra(IncidenceListGraph<TKey> graph, Vertex<TKey> start)` --> `Map<Vertex<TKey>, Long>`**
+  - **`bellmanFord(EdgesListGraph<TKey> graph, Vertex<TKey> start)` --> `Map<Vertex<TKey>, Long>`**
+
+Spanning tree:
+  - **`kruskal(WeightedGraph<TKey> graph)` --> `WeightedGraph<TKey>`**
