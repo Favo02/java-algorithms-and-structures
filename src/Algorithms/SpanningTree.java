@@ -3,10 +3,12 @@ package Algorithms;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import Structures.UnionFind;
+import Structures.Graphs.Edge;
 import Structures.Graphs.Vertex;
 import Structures.Graphs.WeightedEdge;
 import Structures.Graphs.WeightedGraph;
@@ -16,24 +18,29 @@ public class SpanningTree {
 
   // Algorithm based on implementaion by Keith Schwarz (htiek@cs.stanford.edu)
   // (http://keithschwarz.com/interesting)
-  public static <TKey> WeightedGraph<TKey> kruskal(WeightedGraph<TKey> InputGraph) {
+  public static <TKey> WeightedGraph<TKey> kruskal(WeightedGraph<TKey> graph) {
+
     /* Build up the graph that will hold the result. */
     IncidenceListGraph<TKey> result = new IncidenceListGraph<TKey>();
 
     /* Edge case - if the input graph has zero or one nodes, we're done. */
     int numOfEdges = 0;
     int graphSize;
+
     Set<Vertex<TKey>> vertices = new HashSet<>();
-    var edgesIterator = InputGraph.getEdgesIterator();
+
+    Iterator<Edge<TKey>> edgesIterator = graph.getEdgesIterator();
     while (edgesIterator.hasNext()) {
       numOfEdges++;
-      var edge = edgesIterator.next();
+      Edge<TKey> edge = edgesIterator.next();
       vertices.add(edge.getVertexFrom());
       vertices.add(edge.getVertexTo());
     }
+
     graphSize = vertices.size();
-    if (graphSize <= 1)
+    if (graphSize <= 1) {
       return result;
+    }
 
     /*
      * Begin by building up a collection of all the edges of the graph.
@@ -41,7 +48,7 @@ public class SpanningTree {
      * we need to do some processing for this step.
      */
     List<WeightedEdge<TKey>> edges = new ArrayList<>(numOfEdges);
-    var weightedEdgesIterator = InputGraph.getWeightedEdgesIterator();
+    Iterator<WeightedEdge<TKey>> weightedEdgesIterator = graph.getWeightedEdgesIterator();
     while (weightedEdgesIterator.hasNext()) {
       edges.add(weightedEdgesIterator.next());
     }
@@ -51,7 +58,7 @@ public class SpanningTree {
 
     /* Set up the partition of nodes in a union-find structure. */
     UnionFind<Vertex<TKey>> unionFind = new UnionFind<>();
-    var verticesIterator = InputGraph.getVertexesIterator();
+    Iterator<Vertex<TKey>> verticesIterator = graph.getVertexesIterator();
     while (verticesIterator.hasNext()) {
       unionFind.add(verticesIterator.next());
     }

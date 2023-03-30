@@ -29,7 +29,7 @@ public class AdjacencyListGraph<TKey> implements Graph<TKey> {
   }
 
   public void removeAdjacent(Vertex<TKey> from, Vertex<TKey> adjacent) {
-    var fromHashSet = adjacencyList.get(from);
+    Set<Vertex<TKey>> fromHashSet = adjacencyList.get(from);
     if (fromHashSet == null) {
       throw new NullPointerException("from does not exist in the graph");
     }

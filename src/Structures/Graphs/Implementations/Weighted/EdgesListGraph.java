@@ -106,7 +106,7 @@ public class EdgesListGraph<TKey> implements WeightedGraph<TKey> {
   @Override
   public String toString() {
     // Compact toString implementation
-    var sb = new StringBuilder();
+    StringBuilder sb = new StringBuilder();
     for (WeightedEdge<TKey> weightedEdge : edges) {
       sb.append(String.format("{From: %s, To: %s, Weight: %s}", weightedEdge.getVertexFrom().getKey(),
           weightedEdge.getVertexTo().getKey(), weightedEdge.getWeight()));

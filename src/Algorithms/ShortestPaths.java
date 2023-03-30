@@ -22,7 +22,7 @@ public class ShortestPaths {
 
     Iterator<Vertex<TKey>> vertexesIterator = graph.getVertexesIterator();
     while (vertexesIterator.hasNext()) {
-      var vertex = vertexesIterator.next();
+      Vertex<TKey> vertex = vertexesIterator.next();
       priorityQueueEntries.put(vertex, priorityQueue.enqueue(vertex, Long.MAX_VALUE));
     }
 
@@ -104,8 +104,8 @@ public class ShortestPaths {
          * neighbor plus the cost of the edge from that neighbor
          * into this node.
          */
-        var storedVal = scratch.get(edge.getVertexTo());
-        var resultVal = result.get(edge.getVertexFrom());
+        Long storedVal = scratch.get(edge.getVertexTo());
+        Long resultVal = result.get(edge.getVertexFrom());
         if (resultVal != null) {
           if (storedVal == null)
             scratch.put(edge.getVertexTo(), edge.getWeight() + resultVal);

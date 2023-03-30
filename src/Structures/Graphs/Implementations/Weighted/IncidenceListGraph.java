@@ -35,7 +35,7 @@ public class IncidenceListGraph<TKey> implements WeightedGraph<TKey> {
   }
 
   public void removeAdjacent(Vertex<TKey> from, WeightedEdge<TKey> edge) {
-    var fromSet = incidenceList.get(from);
+    Set<WeightedEdge<TKey>> fromSet = incidenceList.get(from);
     if (fromSet == null) {
       throw new NullPointerException("from does not exist in the graph");
     }
@@ -113,12 +113,12 @@ public class IncidenceListGraph<TKey> implements WeightedGraph<TKey> {
 
   @Override
   public String toString() {
-    var sb = new StringBuilder();
-    for (var k : incidenceList.keySet()) {
+    StringBuilder sb = new StringBuilder();
+    for (Vertex<TKey> k : incidenceList.keySet()) {
       sb.append(k.getKey());
       sb.append('{');
-      var valueSet = incidenceList.get(k);
-      for (var v : valueSet) {
+      Set<WeightedEdge<TKey>> valueSet = incidenceList.get(k);
+      for (WeightedEdge<TKey> v : valueSet) {
         sb.append(String.format("%s: %s ", v.getVertexTo().getKey(), v.getWeight()));
       }
       if(!valueSet.isEmpty()) {
