@@ -66,9 +66,7 @@ public class SpanningTree {
      * Now, sweep over the edges, adding each edge if its endpoints aren't
      * in the same partition.
      */
-    weightedEdgesIterator = InputGraph.getWeightedEdgesIterator();
-    while (weightedEdgesIterator.hasNext()) {
-      var edge = weightedEdgesIterator.next();
+    for (WeightedEdge<TKey> edge : edges) {
       /* If the endpoints are connected, skip this edge. */
       if (unionFind.find(edge.getVertexFrom()) == unionFind.find(edge.getVertexTo()))
         continue;
