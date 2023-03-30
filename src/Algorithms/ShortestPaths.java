@@ -9,6 +9,7 @@ import Structures.Graphs.Vertex;
 import Structures.Graphs.WeightedEdge;
 import Structures.Graphs.Implementations.Weighted.EdgesListGraph;
 import Structures.Graphs.Implementations.Weighted.IncidenceListGraph;
+import Structures.Graphs.Implementations.Weighted.WeightedAdjacencyMatrix;
 
 public class ShortestPaths {
 
@@ -126,4 +127,47 @@ public class ShortestPaths {
     /* Finally, report the distances. */
     return result;
   }
+
+  // modifies the original graph
+  public static <TKey> WeightedAdjacencyMatrix<TKey> floydWarshall(WeightedAdjacencyMatrix<TKey> graph) {
+
+    Iterator<Vertex<TKey>> kIterator = graph.getVertexesIterator();
+    
+    while (kIterator.hasNext()) {
+      Vertex<TKey> k = kIterator.next();
+      
+      Iterator<Vertex<TKey>> iIterator = graph.getVertexesIterator();
+      while (iIterator.hasNext()) {
+        Vertex<TKey> i = iIterator.next();
+        
+        Iterator<Vertex<TKey>> jIterator = graph.getVertexesIterator();
+        while (jIterator.hasNext()) {
+          Vertex<TKey> j = jIterator.next();
+
+          System.out.println(k);
+          System.out.println(i);
+          System.out.println(j);
+          System.out.println();
+
+          if (graph.getWeight(i, k) == Long.MAX_VALUE) {
+            continue;
+          }
+          if (graph.getWeight(k, j) == Long.MAX_VALUE) {
+            continue;
+          }
+
+          long oldDist = graph.getWeight(i, j);
+          long newDist = graph.getWeight(i, k) + graph.getWeight(k, j);
+
+          if (newDist < oldDist) {
+            graph.setWeight(i, j, newDist);
+          }
+        }
+      }
+    }
+
+    return graph;
+  }
+
 }
+
