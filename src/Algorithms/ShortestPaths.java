@@ -12,7 +12,8 @@ import Structures.Graphs.Implementations.Weighted.IncidenceListGraph;
 
 public class ShortestPaths {
 
-  // Algorithm based on implementaion by Keith Schwarz (htiek@cs.stanford.edu) (http://keithschwarz.com/interesting)
+  // Algorithm based on implementaion by Keith Schwarz (htiek@cs.stanford.edu)
+  // (http://keithschwarz.com/interesting)
   public static <TKey> Map<Vertex<TKey>, Long> dijkstra(IncidenceListGraph<TKey> graph, Vertex<TKey> start) {
 
     FibonacciHeap<Vertex<TKey>> priorityQueue = new FibonacciHeap<>();
@@ -53,7 +54,8 @@ public class ShortestPaths {
     return distances;
   }
 
-  // Algorithm based on implementaion by Keith Schwarz (htiek@cs.stanford.edu) (http://keithschwarz.com/interesting)
+  // Algorithm based on implementaion by Keith Schwarz (htiek@cs.stanford.edu)
+  // (http://keithschwarz.com/interesting)
   public static <TKey> Map<Vertex<TKey>, Long> bellmanFord(EdgesListGraph<TKey> graph, Vertex<TKey> start) {
     /*
      * Construct a map from the nodes to their distances, then populate it
@@ -66,7 +68,7 @@ public class ShortestPaths {
     int vertexCount = 0;
     while (vertexesIterator.hasNext()) {
       Vertex<TKey> vertex = vertexesIterator.next();
-      result.put(vertex, Long.MAX_VALUE);
+      result.put(vertex, null);
       vertexCount++;
     }
     result.put(start, Long.valueOf(0));
@@ -102,7 +104,14 @@ public class ShortestPaths {
          * neighbor plus the cost of the edge from that neighbor
          * into this node.
          */
-        scratch.put(edge.getVertexTo(), Math.min(scratch.get(edge.getVertexTo()), edge.getWeight() + result.get(edge.getVertexFrom())));
+        var storedVal = scratch.get(edge.getVertexTo());
+        var resultVal = result.get(edge.getVertexFrom());
+        if (resultVal != null) {
+          if (storedVal == null)
+            scratch.put(edge.getVertexTo(), edge.getWeight() + resultVal);
+          else
+            scratch.put(edge.getVertexTo(), Math.min(storedVal, edge.getWeight() + resultVal));
+        }
       }
 
       /*
