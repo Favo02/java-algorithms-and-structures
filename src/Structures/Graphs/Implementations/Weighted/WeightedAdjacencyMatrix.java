@@ -1,6 +1,7 @@
 package Structures.Graphs.Implementations.Weighted;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
@@ -21,16 +22,19 @@ public class WeightedAdjacencyMatrix<TKey> implements WeightedGraph<TKey> {
 
   public WeightedAdjacencyMatrix(Set<Vertex<TKey>> vertexes) {
 
+    this.vertexToIndex = new HashMap<>();
+    this.indexToVertex = new HashMap<>();
+
     int vertexNumber = vertexes.size();
 
-    long[][] matrix = new long[vertexNumber][vertexNumber];
+    this.matrix = new long[vertexNumber][vertexNumber];
     
     for (int i = 0; i < vertexNumber; i++) {
       for (int j = 0; j < vertexNumber; j++) {
         if (i == j) {
-          matrix[i][j] = 0;
+          this.matrix[i][j] = 0;
         } else {
-          matrix[i][j] = Long.MAX_VALUE;
+          this.matrix[i][j] = Long.MAX_VALUE;
         }
       }
     }
@@ -134,6 +138,23 @@ public class WeightedAdjacencyMatrix<TKey> implements WeightedGraph<TKey> {
     return Collections.unmodifiableCollection(edges).iterator();
   }
 
-  // TODO implement toString
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append(vertexToIndex.toString());
+    sb.append('\n');
+    for (int i = 0; i < matrix.length; i++) {
+      for (int j = 0; j < matrix[i].length; j++) {
+        if (matrix[i][j] != Long.MAX_VALUE) {
+          sb.append(matrix[i][j]);
+        } else {
+          sb.append("inf");
+        }
+        sb.append('\t');
+      }
+      sb.append('\n');
+    }
+    return sb.toString();
+  }  
 
 }
