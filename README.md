@@ -67,6 +67,7 @@ Searchs:
 Shortest paths:
   - **`dijkstra(IncidenceListGraph<TKey> graph, Vertex<TKey> start)` --> `Map<Vertex<TKey>, Long>`**
   - **`bellmanFord(EdgesListGraph<TKey> graph, Vertex<TKey> start)` --> `Map<Vertex<TKey>, Long>`**
+  - **`floydWarshall(WeightedAdjacencyMatrix<TKey> graph)` --> `WeightedAdjacencyMatrix<TKey>`**
 
 Spanning tree:
   - **`kruskal(WeightedGraph<TKey> graph)` --> `WeightedGraph<TKey>`**
